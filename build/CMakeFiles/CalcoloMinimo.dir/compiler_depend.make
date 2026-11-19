@@ -86,6 +86,7 @@ CMakeFiles/CalcoloMinimo.dir/src/IOminimum.cpp.o: /home/marco/Scrivania/Progetto
   /usr/include/c++/15/iosfwd \
   /usr/include/c++/15/iostream \
   /usr/include/c++/15/istream \
+  /usr/include/c++/15/limits \
   /usr/include/c++/15/new \
   /usr/include/c++/15/ostream \
   /usr/include/c++/15/stdexcept \
@@ -233,6 +234,8 @@ CMakeFiles/CalcoloMinimo.dir/src/Minimum.cpp.o: /home/marco/Scrivania/ProgettoLD
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/15/include/stddef.h:
 
 /usr/include/c++/15/exception:
@@ -277,8 +280,6 @@ CMakeFiles/CalcoloMinimo.dir/src/Minimum.cpp.o: /home/marco/Scrivania/ProgettoLD
 
 /usr/include/c++/15/bits/range_access.h:
 
-/usr/include/wctype.h:
-
 /usr/include/c++/15/bits/stl_iterator_base_types.h:
 
 /usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
@@ -302,8 +303,6 @@ CMakeFiles/CalcoloMinimo.dir/src/Minimum.cpp.o: /home/marco/Scrivania/ProgettoLD
 /usr/include/c++/15/bits/streambuf_iterator.h:
 
 /usr/include/c++/15/bits/ostream.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
 /usr/include/c++/15/cstdio:
 
@@ -342,6 +341,10 @@ CMakeFiles/CalcoloMinimo.dir/src/Minimum.cpp.o: /home/marco/Scrivania/ProgettoLD
 /usr/include/c++/15/bits/std_abs.h:
 
 /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/Function.cpp:
+
+/usr/include/wctype.h:
+
+/usr/include/c++/15/limits:
 
 /usr/include/c++/15/ext/string_conversions.h:
 

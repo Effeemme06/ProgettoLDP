@@ -1,15 +1,12 @@
 #ifndef IOMINIMUM_H
 #define IOMINIMUM_H
 
+#include "Function.h"
+
 class IOminimum {
-    public:
-        int selectFunction();
-        //Functions* selectFunctionPointer(int choice);
-
-    private:
-
+public:
+    static int selectFunction();
+    static Function getFunction(int choice);
 };
 
-
-
-#endif
+#endif // IOMINIMUM_H

@@ -1,10 +1,14 @@
+#include "../include/IOminimum.h"
 #include <iostream>
-#include "IOminimum.h"
 
 int main() {
-    IOminimum io;
-    int choice = io.selectFunction();
+  int choice = IOminimum::selectFunction();
 
-    std::cout << "You selected function " << choice << "." << std::endl;
-    return 0;
+  std::cout << "You selected function " << choice << "." << std::endl;
+
+  Function f = IOminimum::getFunction(choice);
+
+  std::cout << "Function " << f.getId() << ": " << f.getFunzione() << std::endl;
+
+  return 0;
 }
