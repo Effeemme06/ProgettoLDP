@@ -1,0 +1,9 @@
+nome,funzione,derivata_x,derivata_y,minimo_x,minimo_y,valore_minimo
+f1,"(pow(x, 2) + pow(y, 2)) / 2.0",x,y,0.0,0.0,0.0
+f2,"(pow(x, 2) + 16.0 * pow(y, 2)) / 2.0",x,16.0 * y,0.0,0.0,0.0
+f3,"pow(pow(x, 2) - 1.0, 2) + pow(y, 2)","4.0 * x * (pow(x, 2) - 1.0)",2.0 * y,1.0; -1.0,0.0,0.0
+f4,"pow(pow(x, 2) - 1.0, 2) + pow(x - 1.0, 2) / 5.0 + pow(y, 2)","4.0 * x * (pow(x, 2) - 1.0) + (2.0 / 5.0) * (x - 1.0)",2.0 * y,1.0,0.0,0.0
+f5,"4.0 * pow(sinh(x / 2.0), 2) + pow(y, 2)",4.0 * sinh(x / 2.0) * cosh(x / 2.0),2.0 * y,0.0,0.0,0.0
+f6,"log(1.0 + pow(x, 2) + pow(y, 2))","(2.0 * x) / (1.0 + pow(x, 2) + pow(y, 2))","(2.0 * y) / (1.0 + pow(x, 2) + pow(y, 2))",0.0,0.0,0.0
+f7,"1.0 - exp(-(pow(x, 2) + pow(y, 2)))","2.0 * x * exp(-(pow(x, 2) + pow(y, 2)))","2.0 * y * exp(-(pow(x, 2) + pow(y, 2)))",0.0,0.0,0.0
+f8,2.0 - cos(M_PI * x) - cos(M_PI * y),M_PI * sin(M_PI * x),M_PI * sin(M_PI * y),0.0,0.0,0.0
