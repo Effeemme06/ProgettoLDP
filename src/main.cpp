@@ -1,6 +1,10 @@
 #include <iostream>
+#include "IOminimum.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    IOminimum io;
+    int choice = io.selectFunction();
+
+    std::cout << "You selected function " << choice << "." << std::endl;
     return 0;
 }

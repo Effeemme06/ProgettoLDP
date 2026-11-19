@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/programma.dir/src/main.cpp.o -o programma  -Wl,-rpath,/home/marco/Scrivania/ProgettoLDP/ProgettoLDP/build libCalcoloMinimo.so

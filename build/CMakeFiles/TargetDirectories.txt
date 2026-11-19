@@ -1,0 +1,4 @@
+/home/marco/Scrivania/ProgettoLDP/ProgettoLDP/build/CMakeFiles/CalcoloMinimo.dir
+/home/marco/Scrivania/ProgettoLDP/ProgettoLDP/build/CMakeFiles/programma.dir
+/home/marco/Scrivania/ProgettoLDP/ProgettoLDP/build/CMakeFiles/edit_cache.dir
+/home/marco/Scrivania/ProgettoLDP/ProgettoLDP/build/CMakeFiles/rebuild_cache.dir

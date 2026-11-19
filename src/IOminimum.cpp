@@ -1,4 +1,4 @@
-#include "IOminimum.h"
+#include "include/IOminimum.h"
 #include <iostream>
 
 int IOminimum::selectFunction() {
@@ -23,9 +23,8 @@ int IOminimum::selectFunction() {
             }
         } catch (const std::invalid_argument& e) {
             std::cout << "Error: " << e.what() << std::endl;
-            std::cin.clear(); // Clear the error flag
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
-            choice = 0; // Reset choice to continue the loop
+            std::cin.clear();
+            choice = 0;
         }
     }
 
