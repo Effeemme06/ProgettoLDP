@@ -1,5 +1,6 @@
 #include "../include/Function.h"
 #include "../include/IOminimum.h"
+#include "../include/Minimum.h"
 #include <iostream>
 
 int main() {
@@ -18,5 +19,8 @@ int main() {
   std::cout << f.solveGradX(x_start, y_start) << std::endl;
   std::cout << f.solveGradY(x_start, y_start) << std::endl;
 
+  Minimum::calculate(f, x_start, y_start);
+
   return 0;
+  
 }

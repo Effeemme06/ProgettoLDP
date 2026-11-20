@@ -161,4 +161,5 @@ CMakeFiles/programma.dir/src/main.cpp.o: \
  /usr/include/c++/15/bits/ostream.tcc /usr/include/c++/15/istream \
  /usr/include/c++/15/bits/istream.tcc \
  /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/../include/IOminimum.h \
- /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/../include/Function.h
+ /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/../include/Function.h \
+ /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/../include/Minimum.h
