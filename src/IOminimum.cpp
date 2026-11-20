@@ -188,5 +188,5 @@ float IOminimum::selectCoordinate(std::string nameOfCoordinate) {
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
   return choice;
-
+  
 }
