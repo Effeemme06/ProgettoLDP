@@ -3,78 +3,56 @@
 
 #include <string>
 #include <functional>
+#include <iostream>
 
 // Tipo per funzioni matematiche a 2 variabili f(x, y)
-using MathFunc2D = std::function<double(double, double)>;
+using MathFunc2D = std::function<float(float, float)>;
 
 class Function {
-private:
-    std::string nome;
-    std::string formula_testo;
-    std::string derivata_x_testo;
-    std::string derivata_y_testo;
-    MathFunc2D f;
-    MathFunc2D grad_x;
-    MathFunc2D grad_y;
-    double minimo_x;
-    double minimo_y;
-    double valore_minimo;
 
-public:
-    // Costruttore di default
-    Function();
+    public:
+        Function();
 
-    // Costruttore parametrizzato completo con funzioni matematiche eseguibili (lambda)
-    Function(const std::string& nome,
-             const std::string& formula_testo,
-             const std::string& derivata_x_testo,
-             const std::string& derivata_y_testo,
+        Function(const int id,
+             const std::string& testo,
              MathFunc2D f,
              MathFunc2D grad_x,
              MathFunc2D grad_y,
-             double minimo_x,
-             double minimo_y,
-             double valore_minimo);
+             float valore_minimo);
 
-    // Costruttore di copia
-    Function(const Function& other);
+        Function(const Function& other); // Costruttore di copia
 
-    // Distruttore
-    virtual ~Function();
+        virtual ~Function();
 
-    // Valutazione numerica della funzione e delle derivate
-    double eval(double x, double y) const;
-    double evalGradX(double x, double y) const;
-    double evalGradY(double x, double y) const;
+        // calcola la funzione
+        float solve(float x, float y) const;
+        float solveGradX(float x, float y) const;
+        float solveGradY(float x, float y) const;
 
-    // Getters descrittivi
-    std::string getNome() const;
-    std::string getId() const; // Alias per getNome()
-    std::string getFunzione() const;
-    std::string getDerivataX() const;
-    std::string getDerivataY() const;
+        // Getters descrittivi
+        int getId() const; // Alias per getNome()
+        std::string getFunzione() const;
 
-    // Getters per le funzioni eseguibili
-    MathFunc2D getCallableFunction() const;
-    MathFunc2D getCallableGradX() const;
-    MathFunc2D getCallableGradY() const;
+        // Getters per le funzioni eseguibili
+        MathFunc2D getFunction() const;
+        MathFunc2D getGradX() const;
+        MathFunc2D getGradY() const;
 
-    // Getters per il minimo atteso
-    double getMinimoX() const;
-    double getMinimoY() const;
-    double getValoreMinimo() const;
+        // Getters per il minimo atteso
+        float getValoreMinimo() const;
 
-    // Setters
-    void setNome(const std::string& nome);
-    void setFunzione(const std::string& formula_testo);
-    void setDerivataX(const std::string& derivata_x_testo);
-    void setDerivataY(const std::string& derivata_y_testo);
-    void setCallableFunction(MathFunc2D f);
-    void setCallableGradX(MathFunc2D grad_x);
-    void setCallableGradY(MathFunc2D grad_y);
-    void setMinimoX(double minimo_x);
-    void setMinimoY(double minimo_y);
-    void setValoreMinimo(double valore_minimo);
-};
+        
+        private:
+        
+        int id{0};
+        std::string testo {"y = f(x)"};
+        MathFunc2D f{nullptr};
+        MathFunc2D grad_x{nullptr};
+        MathFunc2D grad_y{nullptr};
+        float valore_minimo {0.0f};
+        
+    };
+    
+    std::ostream& operator<<(std::ostream& os, const Function& func);
 
-#endif // FUNCTION_H
+#endif

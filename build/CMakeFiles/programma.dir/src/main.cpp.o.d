@@ -112,12 +112,14 @@ CMakeFiles/programma.dir/src/main.cpp.o: \
  /usr/include/c++/15/bits/charconv.h \
  /usr/include/c++/15/bits/functional_hash.h \
  /usr/include/c++/15/bits/hash_bytes.h \
- /usr/include/c++/15/bits/basic_string.tcc /usr/include/c++/15/iostream \
- /usr/include/c++/15/ostream /usr/include/c++/15/bits/ostream.h \
- /usr/include/c++/15/ios /usr/include/c++/15/exception \
- /usr/include/c++/15/bits/exception_ptr.h \
+ /usr/include/c++/15/bits/basic_string.tcc /usr/include/c++/15/functional \
+ /usr/include/c++/15/tuple /usr/include/c++/15/bits/uses_allocator.h \
+ /usr/include/c++/15/bits/std_function.h /usr/include/c++/15/typeinfo \
+ /usr/include/c++/15/iostream /usr/include/c++/15/ostream \
+ /usr/include/c++/15/bits/ostream.h /usr/include/c++/15/ios \
+ /usr/include/c++/15/exception /usr/include/c++/15/bits/exception_ptr.h \
  /usr/include/c++/15/bits/cxxabi_init_exception.h \
- /usr/include/c++/15/typeinfo /usr/include/c++/15/bits/nested_exception.h \
+ /usr/include/c++/15/bits/nested_exception.h \
  /usr/include/c++/15/bits/ios_base.h /usr/include/c++/15/ext/atomicity.h \
  /usr/include/x86_64-linux-gnu/c++/15/bits/gthr.h \
  /usr/include/x86_64-linux-gnu/c++/15/bits/gthr-default.h \
@@ -158,4 +160,5 @@ CMakeFiles/programma.dir/src/main.cpp.o: \
  /usr/include/c++/15/bits/locale_facets.tcc \
  /usr/include/c++/15/bits/basic_ios.tcc \
  /usr/include/c++/15/bits/ostream.tcc /usr/include/c++/15/istream \
- /usr/include/c++/15/bits/istream.tcc
+ /usr/include/c++/15/bits/istream.tcc \
+ /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/../include/Function.h

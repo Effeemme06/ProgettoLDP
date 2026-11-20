@@ -14,12 +14,3 @@ add_executable(programma
 )
 
 target_link_libraries(programma PRIVATE ${PROJECT_NAME})
-
-
-# Copia automaticamente Funtions.csv nella cartella di compilazione
-# così l'eseguibile lo trova quando lo avvii da lì
-configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Funtions.csv
-    ${CMAKE_CURRENT_BINARY_DIR}/src/Funtions.csv
-    COPYONLY
-)

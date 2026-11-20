@@ -1,4 +1,5 @@
 #include "../include/IOminimum.h"
+#include "../include/Function.h"
 #include <cmath>
 #include <iostream>
 #include <limits>
@@ -9,124 +10,152 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-namespace {
-// Registro interno in-memory contenente tutte le 8 funzioni con le rispettive
-// formule ed espressioni lambda eseguibili
-const std::map<int, Function> &getFunctionRegistry() {
-  static const std::map<int, Function> registry = {
-      {1, Function(
-              "f1", "(pow(x, 2) + pow(y, 2)) / 2.0", "x", "y",
-              [](double x, double y) { return (x * x + y * y) / 2.0; },
-              [](double x, double) { return x; },
-              [](double, double y) { return y; }, 0.0, 0.0, 0.0)},
-      {2, Function(
-              "f2", "(pow(x, 2) + 16.0 * pow(y, 2)) / 2.0", "x", "16.0 * y",
-              [](double x, double y) { return (x * x + 16.0 * y * y) / 2.0; },
-              [](double x, double) { return x; },
-              [](double, double y) { return 16.0 * y; }, 0.0, 0.0, 0.0)},
-      {3, Function(
-              "f3", "pow(pow(x, 2) - 1.0, 2) + pow(y, 2)",
-              "4.0 * x * (pow(x, 2) - 1.0)", "2.0 * y",
-              [](double x, double y) {
-                double t = x * x - 1.0;
-                return t * t + y * y;
-              },
-              [](double x, double) { return 4.0 * x * (x * x - 1.0); },
-              [](double, double y) { return 2.0 * y; }, 1.0, 0.0, 0.0)},
-      {4,
-       Function(
-           "f4", "pow(pow(x, 2) - 1.0, 2) + pow(x - 1.0, 2) / 5.0 + pow(y, 2)",
-           "4.0 * x * (pow(x, 2) - 1.0) + (2.0 / 5.0) * (x - 1.0)", "2.0 * y",
-           [](double x, double y) {
-             double t = x * x - 1.0;
-             return t * t + (x - 1.0) * (x - 1.0) / 5.0 + y * y;
-           },
-           [](double x, double) {
-             return 4.0 * x * (x * x - 1.0) + (2.0 / 5.0) * (x - 1.0);
-           },
-           [](double, double y) { return 2.0 * y; }, 1.0, 0.0, 0.0)},
-      {5, Function(
-              "f5", "4.0 * pow(sinh(x / 2.0), 2) + pow(y, 2)",
-              "4.0 * sinh(x / 2.0) * cosh(x / 2.0)", "2.0 * y",
-              [](double x, double y) {
-                double s = std::sinh(x / 2.0);
-                return 4.0 * s * s + y * y;
-              },
-              [](double x, double) {
-                return 4.0 * std::sinh(x / 2.0) * std::cosh(x / 2.0);
-              },
-              [](double, double y) { return 2.0 * y; }, 0.0, 0.0, 0.0)},
-      {6,
-       Function(
-           "f6", "log(1.0 + pow(x, 2) + pow(y, 2))",
-           "(2.0 * x) / (1.0 + pow(x, 2) + pow(y, 2))",
-           "(2.0 * y) / (1.0 + pow(x, 2) + pow(y, 2))",
-           [](double x, double y) { return std::log(1.0 + x * x + y * y); },
-           [](double x, double y) { return (2.0 * x) / (1.0 + x * x + y * y); },
-           [](double x, double y) { return (2.0 * y) / (1.0 + x * x + y * y); },
-           0.0, 0.0, 0.0)},
-      {7,
-       Function(
-           "f7", "1.0 - exp(-(pow(x, 2) + pow(y, 2)))",
-           "2.0 * x * exp(-(pow(x, 2) + pow(y, 2)))",
-           "2.0 * y * exp(-(pow(x, 2) + pow(y, 2)))",
-           [](double x, double y) { return 1.0 - std::exp(-(x * x + y * y)); },
-           [](double x, double y) {
-             return 2.0 * x * std::exp(-(x * x + y * y));
-           },
-           [](double x, double y) {
-             return 2.0 * y * std::exp(-(x * x + y * y));
-           },
-           0.0, 0.0, 0.0)},
-      {8, Function(
-              "f8", "2.0 - cos(M_PI * x) - cos(M_PI * y)",
-              "M_PI * sin(M_PI * x)", "M_PI * sin(M_PI * y)",
-              [](double x, double y) {
-                return 2.0 - std::cos(M_PI * x) - std::cos(M_PI * y);
-              },
-              [](double x, double) { return M_PI * std::sin(M_PI * x); },
-              [](double, double y) { return M_PI * std::sin(M_PI * y); }, 0.0,
-              0.0, 0.0)}};
-  return registry;
-}
-} // namespace
+  namespace {
 
-int IOminimum::selectFunction() {
-  int choice = 0;
-  while (choice < 1 || choice > 8) {
-    std::cout << "Invalid choice. Please select a number between 1 and 8."
-              << std::endl;
-    std::cout << "Select a function to execute:" << std::endl;
-    std::cout << "1. f1(x, y) = (x^2 + y^2) / 2" << std::endl;
-    std::cout << "2. f2(x, y) = (x^2 + 16y^2) / 2" << std::endl;
-    std::cout << "3. f3(x, y) = (x^2 - 1)^2 + y^2" << std::endl;
-    std::cout << "4. f4(x, y) = (x^2 - 1)^2 + (x - 1)^2 / 5 + y^2" << std::endl;
-    std::cout << "5. f5(x, y) = 4sinh^2(x / 2) + y^2" << std::endl;
-    std::cout << "6. f6(x, y) = ln(1 + x^2 + y^2)" << std::endl;
-    std::cout << "7. f7(x, y) = 1 - e^(-(x^2 + y^2))" << std::endl;
-    std::cout << "8. f8(x, y) = 2 - cos(pi * x) - cos(pi * y)" << std::endl;
-    std::cout << "Enter your choice (1-8): ";
-    try {
-      std::cin >> choice;
-      if (std::cin.fail()) {
-        throw std::invalid_argument("L'input deve essere un numero intero.");
-      }
-    } catch (const std::invalid_argument &e) {
-      std::cout << "Error: " << e.what() << std::endl;
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-      choice = 0;
+  // Registro interno contenente tutte le 8 funzioni con le formule ed espressioni eseguibili
+    const std::map<int, Function> &getFunctionRegistry() {
+      
+      static const std::map<int, Function> registry = {
+
+        {1, Function(1,
+                    "(pow(x, 2) + pow(y, 2)) / 2.0",
+                    [](float x, float y) { return (x * x + y * y) / 2.0f; },
+                    [](float x, float) { return x; },
+                    [](float, float y) { return y; },
+                    0.0f)},
+
+        {2, Function(2,
+                    "(pow(x, 2) + 16.0 * pow(y, 2)) / 2.0",
+                    [](float x, float y) { return (x * x + 16.0f * y * y) / 2.0f; },
+                    [](float x, float) { return x; },
+                    [](float, float y) { return 16.0f * y; },
+                    0.0f)},
+
+        {3, Function(3,
+                    "pow(pow(x, 2) - 1.0, 2) + pow(y, 2)",
+                    [](float x, float y) {
+                      float t = x * x - 1.0f;
+                      return t * t + y * y;
+                    },
+                    [](float x, float) { return 4.0f * x * (x * x - 1.0f); },
+                    [](float, float y) { return 2.0f * y; },
+                    0.0f)},
+
+        {4, Function(4,
+                    "pow(pow(x, 2) - 1.0, 2) + pow(x - 1.0, 2) / 5.0 + pow(y, 2)",
+                    [](float x, float y) {
+                      float t = x * x - 1.0f;
+                      return t * t + (x - 1.0f) * (x - 1.0f) / 5.0f + y * y;
+                    },
+                    [](float x, float) {
+                      return 4.0f * x * (x * x - 1.0f) + (2.0f / 5.0f) * (x - 1.0f);
+                    },
+                    [](float, float y) { return 2.0f * y; },
+                    0.0f)},
+
+        {5, Function(5,
+                    "4.0 * pow(sinh(x / 2.0), 2) + pow(y, 2)",
+                    [](float x, float y) {
+                      float s = std::sinh(x / 2.0f);
+                      return 4.0f * s * s + y * y;
+                    },
+                    [](float x, float) {
+                      return 4.0f * std::sinh(x / 2.0f) * std::cosh(x / 2.0f);
+                    },
+                    [](float, float y) { return 2.0f * y; },
+                    0.0f)},
+
+        {6, Function(6,
+                    "log(1.0 + pow(x, 2) + pow(y, 2))",
+                    [](float x, float y) { return std::log(1.0f + x * x + y * y); },
+                    [](float x, float y) { return (2.0f * x) / (1.0f + x * x + y * y); },
+                    [](float x, float y) { return (2.0f * y) / (1.0f + x * x + y * y); },
+                    0.0f)},
+
+        {7, Function(7,
+                    "1.0 - exp(-(pow(x, 2) + pow(y, 2)))",
+                    [](float x, float y) { return 1.0f - std::exp(-(x * x + y * y)); },
+                    [](float x, float y) {
+                      return 2.0f * x * std::exp(-(x * x + y * y));
+                    },
+                    [](float x, float y) {
+                      return 2.0f * y * std::exp(-(x * x + y * y));
+                    },
+                    0.0f)},
+
+        {8, Function(8,
+                    "2.0 - cos(M_PI * x) - cos(M_PI * y)",
+                    [](float x, float y) {
+                      return 2.0f - std::cos(static_cast<float>(M_PI) * x) - std::cos(static_cast<float>(M_PI) * y);
+                    },
+                    [](float x, float) {
+                      return static_cast<float>(M_PI) * std::sin(static_cast<float>(M_PI) * x);
+                    },
+                    [](float, float y) {
+                      return static_cast<float>(M_PI) * std::sin(static_cast<float>(M_PI) * y);
+                    },
+                    0.0f)}};
+
+
+      return registry;
+
     }
+
   }
 
-  return choice;
-}
+  int IOminimum::selectFunction() {
 
-Function IOminimum::getFunction(int choice) {
-  const auto &registry = getFunctionRegistry();
-  auto it = registry.find(choice);
-  if (it != registry.end()) {
-    return it->second;
+    int choice = 0;
+
+    while (choice < 1 || choice > 8) {
+
+      std::cout << "\nDigita un numero tra 1 e 8." << std::endl;
+      std::cout << "\nSeleziona la funzione:" << std::endl;
+
+      //aggiungere a questa lista le funzioni
+      std::cout << "1. f1(x, y) = (x^2 + y^2) / 2" << std::endl;
+      std::cout << "2. f2(x, y) = (x^2 + 16y^2) / 2" << std::endl;
+      std::cout << "3. f3(x, y) = (x^2 - 1)^2 + y^2" << std::endl;
+      std::cout << "4. f4(x, y) = (x^2 - 1)^2 + (x - 1)^2 / 5 + y^2" << std::endl;
+      std::cout << "5. f5(x, y) = 4sinh^2(x / 2) + y^2" << std::endl;
+      std::cout << "6. f6(x, y) = ln(1 + x^2 + y^2)" << std::endl;
+      std::cout << "7. f7(x, y) = 1 - e^(-(x^2 + y^2))" << std::endl;
+      std::cout << "8. f8(x, y) = 2 - cos(pi * x) - cos(pi * y)" << std::endl;
+      std::cout << "Digita la tua scelta(1-8): ";
+      
+      try {
+        
+        std::cin >> choice;
+
+        if (std::cin.fail()) {
+          throw std::invalid_argument("L'input deve essere un numero intero.");
+        }
+
+      } catch (const std::invalid_argument &e) {
+
+        std::cout << "Errore: " << e.what() << std::endl;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        choice = 0;
+
+      }
+
+    }
+
+    return choice;
+
   }
-  throw std::out_of_range("La scelta deve essere compresa tra 1 e 8.");
-}
+
+
+  Function IOminimum::getFunction(int choice) {
+
+    const auto &registro = getFunctionRegistry();
+    auto funzione_caricata = registro.find(choice);
+
+    if (funzione_caricata != registro.end()) {
+      return funzione_caricata->second;
+    }
+
+    throw std::out_of_range("La scelta deve essere compresa tra 1 e 8.");
+
+  }
