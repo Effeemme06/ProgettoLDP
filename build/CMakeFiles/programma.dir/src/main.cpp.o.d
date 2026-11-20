@@ -1,7 +1,6 @@
 CMakeFiles/programma.dir/src/main.cpp.o: \
  /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/main.cpp \
  /usr/include/stdc-predef.h \
- /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/../include/IOminimum.h \
  /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/../include/Function.h \
  /usr/include/c++/15/string /usr/include/c++/15/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/15/bits/c++config.h \
@@ -161,4 +160,5 @@ CMakeFiles/programma.dir/src/main.cpp.o: \
  /usr/include/c++/15/bits/basic_ios.tcc \
  /usr/include/c++/15/bits/ostream.tcc /usr/include/c++/15/istream \
  /usr/include/c++/15/bits/istream.tcc \
+ /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/../include/IOminimum.h \
  /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/../include/Function.h
