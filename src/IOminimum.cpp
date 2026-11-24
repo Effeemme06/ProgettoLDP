@@ -190,3 +190,36 @@ float IOminimum::selectCoordinate(std::string nameOfCoordinate) {
   return choice;
   
 }
+
+float IOminimum::getT() {
+
+  float value = 0.0f;
+  bool valid = false;
+
+  while(!valid){
+
+      std::cout << "\nInserisci la soglia T: ";
+      try{
+          std::cin >> value;
+
+          if(std::cin.fail()){
+            throw std::invalid_argument("L'input deve essere un numero valido.");
+          }
+          if(value <= 0){
+            throw std::invalid_argument("Il valore deve essere un numero positivo.");
+          }
+          
+          valid = true;
+        }catch(const std::invalid_argument &e){
+
+          std::cout << "Errore: " << e.what() << std::endl;
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+          valid = false;
+        }
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+  }
+  
+  return value;
+}
