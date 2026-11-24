@@ -9,7 +9,7 @@ namespace {
         std::cout << "\nk: " << k << "; p: ("<< x <<", " << y <<")" << "; f(p): " << fValue << "; Error: " << error<< "; ||∇f(p)||: " << gradNorm << std::endl;
     }
 
-    // Stampa i risulatati finali dopo la discesa del gradiente, punto finale
+    // Stampa i risulatati finali dopo la discesa del gradiente, iterazioni totali, punto gradiente e errore finali
     void printFinalOutput(bool ended, int totalIterations, float x, float y, float finalF, float finalError, float finalGradNorm, float t, int n){
         std::cout << "\nPosizione finale del punto p: ("<< x <<", " << y <<")" << std::endl;
         std::cout << "Valore della funzione in f(p):  "<< finalF << std::endl;
@@ -26,21 +26,23 @@ namespace {
     // Usa Armijo Backtracking per calcolare a in modo variabile
     float calculateA(const Function& f, float fValue, float a, float x, float y, float gradNorm, float dx, float dy){
         const float c = 1e-4f;   // Costante di Armijo
-        const float beta = 0.5f; // Fattore di riduzione del passo
         float currentA = a;
         bool valid = false;
 
         while(currentA > 1e-7f && !valid){ //Soglia per non avere un a troppo piccolo
             float nextX = x - currentA*dx;
             float nextY = y - currentA*dy;
-            // Calcola il possibile passo successivo
+
+            // Calcola il possibile passo successivo usando l'a attuale
             float nextF = f.solve(nextX, nextY); 
 
-            // Verifica se per la formula di Armijo il passo è accettabile
+            // Verifica se per la formula di Armijo il passo ottenuto è accettabile
             if (nextF <= fValue - c*currentA*(gradNorm*gradNorm)) {
                 valid = true;
             }else{
-                currentA *= beta; 
+                // Incaso il passo attuale non rispetta la formula di Armijo
+                // Viene dimezzata l'a attuale
+                currentA /= 2.0f; 
                 valid = false;
             }
            
@@ -54,8 +56,8 @@ namespace {
 
 // Calcola il minimo della funzione usando il cammino del gradiente
 void Minimum::calculateMin(const Function& f, float x0, float y0, float t){
-    float a=0.1f;    // Passo a
-    int n = 1000;    // Soglia iterazioni
+    float a=0.1f;    // Passo a default
+    int n = 1000;    // Soglia iterazioni massime
     
     float fMin = f.getValoreMinimo(); 
     float x = x0, y = y0;
@@ -79,6 +81,7 @@ void Minimum::calculateMin(const Function& f, float x0, float y0, float t){
         float dx = f.solveGradX(x, y);
         float dy = f.solveGradY(x, y);
         
+        // Calcolo la norma del gradiente
         gradNorm = calculateGradNorm(dx, dy);
 
         // Output periodico da stampare all'utente
@@ -86,12 +89,13 @@ void Minimum::calculateMin(const Function& f, float x0, float y0, float t){
             printStatus(k, x, y, fValue, error, gradNorm);
         }
 
-        // Verifica della soglia T
+        // Verifica se viene superata la soglia T
         if(gradNorm < t){
             ended = true;
         }
 
         if(!ended){
+            // Solo se la soglia non è stata superata aggiorna a
             currentA = calculateA(f, fValue, currentA, x, y, gradNorm, dx, dy);
 
             // Compie il passo utilizzando a aggiornata
@@ -100,9 +104,11 @@ void Minimum::calculateMin(const Function& f, float x0, float y0, float t){
         }
     }
 
+    // Stampa finale dei risultati
     printFinalOutput(ended, totalIterations, x, y, fValue, error, gradNorm, t, n);
 }
 
+// Calcola la norma del gradiente
 float Minimum::calculateGradNorm(float dx, float dy){
     return std::sqrt(dx*dx + dy*dy);
 }
