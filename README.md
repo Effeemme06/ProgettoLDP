@@ -22,7 +22,7 @@ nextF <= fValue - c\*currentA*(gradNorm*gradNorm)
 - gradNorm*gradNorm: è la norma del gradiente alla seconda 
 
 L'algoritmo consiste nel:
-1) calcolare il valore del prossimo passo passo usando "a" attuale
+1) calcolare il valore del prossimo passo usando "a" attuale
 2) verificare tramite la disequazione che questo "a" sia considerato efficiente
 3) aggiornare "a", dimezzandolo per semplicità, nel caso in cui non sia efficiente
 
