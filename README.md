@@ -11,7 +11,7 @@ Abbiamo deciso di provare ad implementare un algoritmo per aggiornare in modo di
 abbiamo cercato su internet dei modi per implementarlo, metto qui sotto dei link con alcune fonti.
 
 Abbiamo dunque trovato ed utilizzato il metodo Armijo Backtracking Line Search applicato alla discesa del gradiente,
-cerca un passo "a" efficiente che rispetti la sequente disequazione: (che si trova così nel codice)
+che cerca un passo "a" efficiente che rispetti la sequente disequazione: (che si trova così nel codice)
 
 nextF <= fValue - c\*currentA*(gradNorm*gradNorm)
 
