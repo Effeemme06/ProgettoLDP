@@ -4,10 +4,11 @@
 #include "Function.h"
 
 class IOminimum {
-public:
-  static int selectFunction();
-  static Function getFunction(int choice);
-  static float selectCoordinate(std::string nameOfCoordinate);
+    public:
+        static int selectFunction();
+        static Function getFunction(int choice);
+        static float selectCoordinate(std::string nameOfCoordinate);
+        static float getT();
 };
 
 #endif // IOMINIMUM_H
