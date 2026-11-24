@@ -7,7 +7,7 @@ Lavoro svolto nel progetto:
 
 Ciao FM metti tu la parte in cui spieghi come gestiamo le funzioni? grazie token ciao
 
-Abbiamo deciso di provare ad implementare un algoritmo per aggiornare in modo dinamico il passo a, creando una funzione apposita nella classe Minimum
+Abbiamo deciso di provare ad implementare un algoritmo per aggiornare in modo dinamico il passo a, creando una funzione apposita nella classe Minimum,
 abbiamo cercato su internet dei modi per implementarlo, metto qui sotto dei link con alcune fonti.
 
 Abbiamo dunque trovato ed utilizzato il metodo Armijo Backtracking Line Search applicato alla discesa del gradiente,
