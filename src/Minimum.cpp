@@ -1,126 +1,108 @@
 #include "../include/Minimum.h"
 #include <cmath>
 #include <iostream>
-#include <iomanip>
 
 namespace {
-    // k     p_k     f(p_k)     e_k = f(p_k) - m     ||∇f(p_k)||
-    void printIteration(int k, float x, float y, float f_val, float error, float grad_norm) {
 
-        std::cout << "\nk: " << k
-                  << " | p_k: (" << x << ", " << y << ")"
-                  << " | f(p_k): " << f_val
-                  << " | e_k: " << error
-                  << " | ||∇f(p_k)||: " << grad_norm
-                  << std::endl;
+    // Stampa periodica dei valori
+    void printStatus(int k, float x, float y, float fValue, float error, float gradNorm){
+        std::cout << "\nk: " << k << "; p: ("<< x <<", " << y <<")" << "; f(p): " << fValue << "; Error: " << error<< "; ||∇f(p)||: " << gradNorm << std::endl;
+    }
 
+    // Stampa i risulatati finali dopo la discesa del gradiente, punto finale
+    void printFinalOutput(bool ended, int totalIterations, float x, float y, float finalF, float finalError, float finalGradNorm, float t, int n){
+        std::cout << "\nPosizione finale del punto p: ("<< x <<", " << y <<")" << std::endl;
+        std::cout << "Valore della funzione in f(p):  "<< finalF << std::endl;
+        std::cout << "Errore finale: "<< finalError << std::endl;
+        std::cout << "Norma gradiente finale: "<< finalGradNorm << std::endl;
+        std::cout << "Iterazioni eseguite: "<< totalIterations << std::endl;
+        if (ended) {
+            std::cout << "E' stata superata la soglia T: ||∇f(p)|| < T (" << finalGradNorm << " < " << t << ")" << std::endl;
+        } else {
+            std::cout << "E' stato raggiunto il limite massimo di iterazioni N = " << n << std::endl;
+        }
+    }
+    
+    // Usa Armijo Backtracking per calcolare a in modo variabile
+    float calculateA(const Function& f, float fValue, float a, float x, float y, float gradNorm, float dx, float dy){
+        const float c = 1e-4f;   // Costante di Armijo
+        const float beta = 0.5f; // Fattore di riduzione del passo
+        float currentA = a;
+        bool valid = false;
+
+        while(currentA > 1e-7f && !valid){ //Soglia per non avere un a troppo piccolo
+            float nextX = x - currentA*dx;
+            float nextY = y - currentA*dy;
+            // Calcola il possibile passo successivo
+            float nextF = f.solve(nextX, nextY); 
+
+            // Verifica se per la formula di Armijo il passo è accettabile
+            if (nextF <= fValue - c*currentA*(gradNorm*gradNorm)) {
+                valid = true;
+            }else{
+                currentA *= beta; 
+                valid = false;
+            }
+           
+        }
+        return currentA; // Restituisce a aggiornato
     }
 
 }
 
-void Minimum::calculate(const Function& f, float x0, float y0){
 
-    float a = 0.1f;
-    float T = 1e-4f;
-    int N = 1000;
 
-    float x = x0;
-    float y = y0;
-    float m = f.getValoreMinimo(); // Minimo della funzione noto a priori
+// Calcola il minimo della funzione usando il cammino del gradiente
+void Minimum::calculateMin(const Function& f, float x0, float y0, float t){
+    float a=0.1f;    // Passo a
+    int n = 1000;    // Soglia iterazioni
+    
+    float fMin = f.getValoreMinimo(); 
+    float x = x0, y = y0;
 
-    std::cout << "\n================== Discesa del Gradiente ==================" << std::endl;
-    std::cout << "Funzione [ID " << f.getId() << "]: " << f.getFunzione() << std::endl;
-    std::cout << "Posizione iniziale p_0 = (" << x0 << ", " << y0 << ")" << std::endl;
-    std::cout << "Passo iniziale a: " << a << " (passo variabile con backtracking)" << std::endl;
-    std::cout << "Soglia tolleranza T: " << T << " | Max iterazioni N: " << N << std::endl;
-    std::cout << "------------------------------------------------------------" << std::endl;
-
-    int lastPrintedK = -1;
     int totalIterations = 0;
-    bool converged = false;
-    float finalF = 0.0f;
-    float finalError = 0.0f;
-    float finalGradNorm = 0.0f;
+    bool ended = false;
+    float fValue = 0.0f;
+    float error = 0.0f;
+    float gradNorm = 0.0f;
 
-    for (int k = 0; k <= N; ++k) {
+    for(int k=0; k<=n && !ended; k++){
+
         totalIterations = k;
-
-        // Calcolo valore f(p_k)
-        float f_k = f.solve(x, y);
-
-        // Calcolo errore e_k = f(p_k) - m
-        float e_k = f_k - m;
-
-        // Calcolo derivate parziali: fx e fy
-        float gx = f.solveGradX(x, y);
-        float gy = f.solveGradY(x, y);
-
-        // Norma del gradiente: ||∇f(p_k)|| = sqrt(fx^2 + fy^2)
-        float gradNorm = std::sqrt(gx * gx + gy * gy);
-
-        finalF = f_k;
-        finalError = e_k;
-        finalGradNorm = gradNorm;
-
-        // Output all'utente: ogni 10 iterazioni (k = 0, 10, 20, ...)
-        if (k % 10 == 0) {
-            printIteration(k, x, y, f_k, e_k, gradNorm);
-            lastPrintedK = k;
-        }
-
-        // Criterio di arresto 1: la norma del gradiente e' inferiore alla soglia T
-        if (gradNorm < T) {
-            converged = true;
-            if (lastPrintedK != k) {
-                printIteration(k, x, y, f_k, e_k, gradNorm);
-                lastPrintedK = k;
-            }
-            break;
-        }
-
-        // Criterio di arresto 2: raggiunto numero massimo di iterazioni N
-        if (k == N) {
-            if (lastPrintedK != k) {
-                printIteration(k, x, y, f_k, e_k, gradNorm);
-                lastPrintedK = k;
-            }
-            break;
-        }
-
-        // Spostamento verso il passo successivo con passo 'a' variabile (Armijo Backtracking)
         float currentA = a;
-        const float c = 1e-4f;
-        const float beta = 0.5f;
-        float normSq = gradNorm * gradNorm;
 
-        while (currentA > 1e-7f) {
-            float nextX = x - currentA * gx;
-            float nextY = y - currentA * gy;
-            float nextF = f.solve(nextX, nextY);
+        // Cacolo del valore della funzione, errore, derivate parziali
+        fValue = f.solve(x, y);
 
-            if (nextF <= f_k - c * currentA * normSq) {
-                break;
-            }
-            currentA *= beta;
+        error = fValue - fMin;
+
+        float dx = f.solveGradX(x, y);
+        float dy = f.solveGradY(x, y);
+        
+        gradNorm = calculateGradNorm(dx, dy);
+
+        // Output periodico da stampare all'utente
+        if(k%10 == 0){
+            printStatus(k, x, y, fValue, error, gradNorm);
         }
 
-        x = x - currentA * gx;
-        y = y - currentA * gy;
+        // Verifica della soglia T
+        if(gradNorm < t){
+            ended = true;
+        }
+
+        if(!ended){
+            currentA = calculateA(f, fValue, currentA, x, y, gradNorm, dx, dy);
+
+            // Compie il passo utilizzando a aggiornata
+            x = x - currentA*dx;
+            y = y - currentA*dy;
+        }
     }
 
-    // Output finale richiesto dalle specifiche:
-    // Stampa la posizione finale del punto p_E ed il corrispondente valore f(p_E)
-    std::cout << "------------------------------------------------------------" << std::endl;
-    std::cout << "Posizione finale del punto p_E: (" << std::fixed << std::setprecision(6) << x << ", " << y << ")" << std::endl;
-    std::cout << "Valore della funzione f(p_E):  " << std::setprecision(6) << finalF << std::endl;
-    std::cout << "Errore finale e_E:             " << std::setprecision(6) << finalError << std::endl;
-    std::cout << "Norma gradiente finale:        " << std::setprecision(6) << finalGradNorm << std::endl;
-    std::cout << "Iterazioni eseguite:           " << totalIterations << std::endl;
-    if (converged) {
-        std::cout << "Criterio di arresto: ||∇f(p_E)|| < T (" << finalGradNorm << " < " << T << ")" << std::endl;
-    } else {
-        std::cout << "Criterio di arresto: Raggiunto limite massimo di iterazioni N = " << N << std::endl;
-    }
-    std::cout << "============================================================\n" << std::endl;
+    printFinalOutput(ended, totalIterations, x, y, fValue, error, gradNorm, t, n);
+}
 
+float Minimum::calculateGradNorm(float dx, float dy){
+    return std::sqrt(dx*dx + dy*dy);
 }
