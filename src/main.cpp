@@ -11,15 +11,19 @@ int main() {
   Function f = IOminimum::getFunction(choice);
   std::cout << "\nDati della funzione: " << f << std::endl;
 
-  float x_start = IOminimum::selectCoordinate("x");
-  float y_start = IOminimum::selectCoordinate("y");
+  float x = IOminimum::selectCoordinate("x");
+  float y = IOminimum::selectCoordinate("y");
 
-  std::cout << "Punto di partenza: (" << x_start << ", " << y_start << ")\n" << std::endl;
-  std::cout << f.solve(x_start, y_start) << std::endl;
-  std::cout << f.solveGradX(x_start, y_start) << std::endl;
-  std::cout << f.solveGradY(x_start, y_start) << std::endl;
+  float t = IOminimum::getT();
 
-  Minimum::calculate(f, x_start, y_start);
+  std::cout << "Punto di partenza: (" << x << ", " << y << ")\n" << std::endl;
+  std::cout << "Valore della funzione nel punto di Partenza: " << f.solve(x, y) << std::endl;
+  std::cout << "Valore della derivata parziale rispetto a x nel punto di Partenza: " << f.solveGradX(x, y) << std::endl;
+  std::cout << "Valore della derivata parziale rispetto a y nel punto di Partenza: " << f.solveGradY(x, y) << std::endl;
+
+  std::cout << "\nCalcolo del minimo della funzione attraverso il cammino del gradiente:" << std::endl;
+
+  Minimum::calculateMin(f, x, y, t);
 
   return 0;
   
