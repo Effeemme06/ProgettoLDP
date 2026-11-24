@@ -157,7 +157,6 @@ Function IOminimum::getFunction(int choice) {
   throw std::out_of_range("La scelta deve essere compresa tra 1 e 8.");
 }
 
-
 float IOminimum::selectCoordinate(std::string nameOfCoordinate) {
 
   float choice = -52.0f;
@@ -191,6 +190,7 @@ float IOminimum::selectCoordinate(std::string nameOfCoordinate) {
   
 }
 
+// Funzione che ottiene in input il valore della soglia T dall'utente
 float IOminimum::getT() {
 
   float value = 0.0f;
@@ -202,10 +202,10 @@ float IOminimum::getT() {
       try{
           std::cin >> value;
 
-          if(std::cin.fail()){
+          if(std::cin.fail()){ // Controlla che l'input sia valido, un float
             throw std::invalid_argument("L'input deve essere un numero valido.");
           }
-          if(value <= 0){
+          if(value <= 0){      // Controlla che il valore inserito in input sia maggiore di 0
             throw std::invalid_argument("Il valore deve essere un numero positivo.");
           }
           
@@ -214,7 +214,7 @@ float IOminimum::getT() {
 
           std::cout << "Errore: " << e.what() << std::endl;
           std::cin.clear();
-          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');   // Comandi usati per svuotare il buffer dell'input
           valid = false;
         }
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
