@@ -12,8 +12,15 @@
 
 namespace {
 
-// Registro interno contenente tutte le 8 funzioni con le formule ed espressioni
-// eseguibili
+// Registro interno contenente tutte le 8 funzioni con le formule ed espressioni eseguibili per calcolare la funzione e le derivate parziali
+/* ogni funzione è rappresentata da un oggetto Function con:
+  -ID
+  - testo della funzione
+  - espressione eseguibile della funzione f(x, y)
+  - espressione eseguibile della derivata parziale df/dx
+  - espressione eseguibile della derivata parziale df/dy
+  - valore minimo atteso della funzione
+*/
 const std::map<int, Function> &getFunctionRegistry() {
 
   static const std::map<int, Function> registry = {
@@ -102,6 +109,8 @@ const std::map<int, Function> &getFunctionRegistry() {
 
 } // namespace
 
+
+// Funzione per selezionare una funzione matematica da un elenco (input dell'utente)
 int IOminimum::selectFunction() {
 
   int choice = 0;
@@ -145,6 +154,7 @@ int IOminimum::selectFunction() {
 
 }
 
+// Funzione per ottenere l'oggetto Function cntenente la funzione selezionata dall'utente (in base a choice)
 Function IOminimum::getFunction(int choice) {
 
   const auto &registro = getFunctionRegistry();

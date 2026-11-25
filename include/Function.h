@@ -11,8 +11,8 @@ using MathFunc2D = std::function<float(float, float)>;
 class Function {
 
     public:
+        //costruttori
         Function();
-
         Function(const int id,
              const std::string& testo,
              MathFunc2D f,
@@ -22,15 +22,15 @@ class Function {
 
         Function(const Function& other); // Costruttore di copia
 
-        virtual ~Function();
+        ~Function(); // Distruttore
 
-        // calcola la funzione
+        // calcola la funzione (funzione, gradiente x, gradiente y)
         float solve(float x, float y) const;
         float solveGradX(float x, float y) const;
         float solveGradY(float x, float y) const;
 
-        // Getters descrittivi
-        int getId() const; // Alias per getNome()
+        // Getters (id e testo della funzione)
+        int getId() const;
         std::string getFunzione() const;
 
         // Getters per le funzioni eseguibili
@@ -42,7 +42,7 @@ class Function {
         float getValoreMinimo() const;
 
         
-        private:
+    private:
         
         int id{0};
         std::string testo {"y = f(x)"};
@@ -53,6 +53,7 @@ class Function {
         
     };
     
-    std::ostream& operator<<(std::ostream& os, const Function& func);
+    // Overload dell'operatore di output per stampare le informazioni della funzione
+    std::ostream& operator<<(std::ostream& os, const Function& func); 
 
 #endif

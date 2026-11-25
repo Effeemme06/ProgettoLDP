@@ -5,8 +5,6 @@ Lavoro svolto nel progetto:
 - Pasqualini: sviluppo classi Minimum.h, Minimum.cpp, funzione getT in IOminimum
 - Favaro: sviluppo classi Function.h, Function.cpp, altre funzioni in IOminimum
 
-Ciao FM metti tu la parte in cui spieghi come gestiamo le funzioni? grazie token ciao
-
 Abbiamo deciso di provare ad implementare un algoritmo per aggiornare in modo dinamico il passo a, creando una funzione apposita nella classe Minimum,
 abbiamo cercato su internet dei modi per implementarlo, metto qui sotto dei link con alcune fonti.
 
@@ -31,3 +29,19 @@ Link:
 - https://youtu.be/4qDt4QUl4zE?si=KDKTvEHeXJ9cx8xQ
 - https://vaswanis.github.io/409_981-F22/L3.pdf, mostra la formula applicata alla discesa del gradiente
 
+Per salvare le funzioni e caricarle, abbiamo usato una mappa. Questo ci permette ci aggiungere e modificare facilmente eventuali funzioni semplicemente modificando IOminimum.cpp
+
+Un oggetto funzione contiene i seguenti campi: 
+  - ID
+  - testo della funzione
+  - espressione eseguibile della funzione f(x, y)
+  - espressione eseguibile della derivata parziale df/dx
+  - espressione eseguibile della derivata parziale df/dy
+  - valore minimo atteso della funzione
+
+Per espressione eseguibile intendiamo una lambda function (di cui lasciamo i link per la documentazione qui sotto).
+Questo ci permette di eseguire i calcoli del valore della funzione e del gradiente in maniere rapida e attraverso codice molto pulito.
+
+Link:
+ - https://www.w3schools.com/cpp/cpp_functions_lambda.asp
+ - https://en.cppreference.com/cpp/language/lambda
