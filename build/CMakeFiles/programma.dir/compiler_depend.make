@@ -4,6 +4,7 @@
 CMakeFiles/programma.dir/src/main.cpp.o: /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/main.cpp \
   /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/include/Function.h \
   /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/include/IOminimum.h \
+  /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/include/Minimum.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -322,6 +323,8 @@ CMakeFiles/programma.dir/src/main.cpp.o: /home/marco/Scrivania/ProgettoLDP/Proge
 
 /usr/include/c++/15/bits/nested_exception.h:
 
+/usr/include/c++/15/bits/locale_facets.tcc:
+
 /usr/include/c++/15/bits/move.h:
 
 /usr/include/c++/15/bits/stringfwd.h:
@@ -362,21 +365,29 @@ CMakeFiles/programma.dir/src/main.cpp.o: /home/marco/Scrivania/ProgettoLDP/Proge
 
 /usr/include/asm-generic/int-ll64.h:
 
-/usr/include/c++/15/bits/basic_ios.tcc:
-
 /usr/include/c++/15/ext/atomicity.h:
 
 /usr/include/x86_64-linux-gnu/bits/time.h:
-
-/usr/include/asm-generic/errno.h:
 
 /usr/include/c++/15/bits/stl_iterator.h:
 
 /usr/include/c++/15/initializer_list:
 
+/usr/include/asm-generic/errno.h:
+
 /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/include/Function.h:
 
 /home/marco/Scrivania/ProgettoLDP/ProgettoLDP/src/main.cpp:
+
+/usr/include/c++/15/bits/basic_ios.tcc:
+
+/home/marco/Scrivania/ProgettoLDP/ProgettoLDP/include/Minimum.h:
+
+/usr/include/time.h:
+
+/usr/include/c++/15/bits/streambuf.tcc:
+
+/usr/include/c++/15/bits/hash_bytes.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
@@ -412,13 +423,9 @@ CMakeFiles/programma.dir/src/main.cpp.o: /home/marco/Scrivania/ProgettoLDP/Proge
 
 /usr/include/c++/15/bits/charconv.h:
 
-/usr/include/c++/15/ext/numeric_traits.h:
-
 /usr/include/c++/15/bits/cxxabi_forced.h:
 
 /usr/include/c++/15/bits/ios_base.h:
-
-/usr/include/c++/15/bits/locale_facets.tcc:
 
 /usr/include/c++/15/bits/postypes.h:
 
@@ -436,10 +443,6 @@ CMakeFiles/programma.dir/src/main.cpp.o: /home/marco/Scrivania/ProgettoLDP/Proge
 
 /usr/include/c++/15/bits/locale_classes.h:
 
-/usr/include/c++/15/bits/streambuf.tcc:
-
-/usr/include/c++/15/bits/hash_bytes.h:
-
 /usr/include/c++/15/bits/cpp_type_traits.h:
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
@@ -447,6 +450,8 @@ CMakeFiles/programma.dir/src/main.cpp.o: /home/marco/Scrivania/ProgettoLDP/Proge
 /usr/include/c++/15/bits/invoke.h:
 
 /usr/include/linux/stddef.h:
+
+/usr/include/c++/15/ext/numeric_traits.h:
 
 /usr/include/x86_64-linux-gnu/c++/15/bits/os_defines.h:
 
@@ -511,8 +516,6 @@ CMakeFiles/programma.dir/src/main.cpp.o: /home/marco/Scrivania/ProgettoLDP/Proge
 /usr/include/c++/15/ios:
 
 /usr/include/stdio.h:
-
-/usr/include/time.h:
 
 /usr/include/x86_64-linux-gnu/asm/types.h:
 

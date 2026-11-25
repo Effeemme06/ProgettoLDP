@@ -170,11 +170,4 @@ CMakeFiles/CalcoloMinimo.dir/src/Minimum.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
- /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /usr/include/c++/15/iomanip /usr/include/c++/15/locale \
- /usr/include/c++/15/bits/locale_facets_nonio.h /usr/include/c++/15/ctime \
- /usr/include/x86_64-linux-gnu/c++/15/bits/time_members.h \
- /usr/include/x86_64-linux-gnu/c++/15/bits/messages_members.h \
- /usr/include/libintl.h /usr/include/c++/15/bits/codecvt.h \
- /usr/include/c++/15/bits/locale_facets_nonio.tcc \
- /usr/include/c++/15/bits/locale_conv.h
+ /usr/include/x86_64-linux-gnu/bits/iscanonical.h

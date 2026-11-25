@@ -45,3 +45,10 @@ Questo ci permette di eseguire i calcoli del valore della funzione e del gradien
 Link:
  - https://www.w3schools.com/cpp/cpp_functions_lambda.asp
  - https://en.cppreference.com/cpp/language/lambda
+
+Per la stuttura del progetto abbiamo utilizzato cmake. Per complilare è quindi necessario, in terminale, eseguire i seguenti comandi:
+ - cmake -B build
+ - cmake --build build
+ - ./build/programma
+
+L'eseguible si chiama "programma"  si trova in ./build.
